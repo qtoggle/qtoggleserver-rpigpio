@@ -95,7 +95,3 @@ class RPiGPIO(ports.Port):
         else:
             self.debug('configuring as input (pull=%s)', self._PULL_VALUE_MAPPING[def_value])
             GPIO.setup(self._no, GPIO.IN, pull_up_down=self._PULL_GPIO_MAPPING[def_value])
-
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
