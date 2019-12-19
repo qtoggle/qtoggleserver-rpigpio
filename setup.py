@@ -1,7 +1,7 @@
 
 from setuptools import setup, find_namespace_packages
 
-from qtoggleserver.dallastemp import VERSION
+from qtoggleserver.rpigpio import VERSION
 
 
 setup(
