@@ -66,7 +66,7 @@ class RPiGPIO(ports.Port):
         GPIO.output(self._no, value)
 
     async def attr_is_writable(self):
-        return self.attr_is_output()
+        return await self.attr_is_output()
 
     async def attr_set_output(self, output):
         if not self.is_enabled():
