@@ -13,7 +13,7 @@ class RPiGPIOFloat(ports.Port):
         self._no = no
         self._def_value = def_value
 
-        super().__init__(port_id='gpio{}'.format(no))
+        super().__init__(port_id=f'gpio{no}')
 
     async def handle_enable(self):
         self._configure(self._def_value)

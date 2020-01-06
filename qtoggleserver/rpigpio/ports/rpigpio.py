@@ -53,7 +53,7 @@ class RPiGPIO(ports.Port):
 
         self._def_output = def_output
 
-        super().__init__(port_id='gpio{}'.format(no))
+        super().__init__(port_id=f'gpio{no}')
 
     async def handle_enable(self):
         self._configure(self._def_output, self._def_value)
