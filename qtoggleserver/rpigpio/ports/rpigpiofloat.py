@@ -9,7 +9,7 @@ class RPiGPIOFloat(ports.Port):
     TYPE = ports.TYPE_BOOLEAN
     WRITABLE = True
 
-    def __init__(self, no, def_value=None):
+    def __init__(self, no, def_value=None) -> None:
         self._no = no
         self._def_value = def_value
 
