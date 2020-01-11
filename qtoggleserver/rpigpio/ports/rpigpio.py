@@ -1,5 +1,6 @@
 
 from RPi import GPIO
+from typing import Optional
 
 from qtoggleserver.core import ports
 from qtoggleserver.utils import json as json_utils
@@ -43,7 +44,7 @@ class RPiGPIO(ports.Port):
         'down': False
     }
 
-    def __init__(self, no, def_value=None, def_output=None) -> None:
+    def __init__(self, no: int, def_value: Optional[bool] = None, def_output: Optional[bool] = None) -> None:
         self._no = no
         self._def_value = def_value  # Also plays the role of pull setup
 
@@ -55,38 +56,38 @@ class RPiGPIO(ports.Port):
 
         super().__init__(port_id=f'gpio{no}')
 
-    async def handle_enable(self):
+    async def handle_enable(self) -> None:
         self._configure(self._def_output, self._def_value)
 
-    async def read_value(self):
+    async def read_value(self) -> bool:
         return GPIO.input(self._no) == 1
 
-    async def write_value(self, value):
+    async def write_value(self, value: bool) -> None:
         self.debug('writing output value %s', json_utils.dumps(value))
         GPIO.output(self._no, value)
 
-    async def attr_is_writable(self):
+    async def attr_is_writable(self) -> bool:
         return await self.attr_is_output()
 
-    async def attr_set_output(self, output):
+    async def attr_set_output(self, output: bool) -> None:
         if not self.is_enabled():
             self._def_output = output
             return
 
         self._configure(output, self._def_value)
 
-    async def attr_is_output(self):
+    async def attr_is_output(self) -> bool:
         return GPIO.gpio_function(self._no) == GPIO.OUT
 
-    async def attr_get_pull(self):
+    async def attr_get_pull(self) -> str:
         return self._PULL_VALUE_MAPPING[self._def_value]
 
-    async def attr_set_pull(self, pull):
+    async def attr_set_pull(self, pull: str) -> None:
         self._def_value = self._PULL_VALUE_MAPPING[pull]
         if self.is_enabled() and GPIO.gpio_function(self._no) != GPIO.OUT:
             self._configure(output=False, def_value=self._def_value)
 
-    def _configure(self, output, def_value):
+    def _configure(self, output: bool, def_value: Optional[bool]) -> None:
         if output:
             def_value = def_value or False  # def_value can be None
             self.debug('configuring as output (initial=%s)', str(def_value).lower())
