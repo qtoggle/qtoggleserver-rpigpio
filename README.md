@@ -1,4 +1,4 @@
-### About
+## About
 
 This is an addon for [qToggleServer](https://github.com/qtoggle/qtoggleserver).
 
@@ -10,14 +10,14 @@ disabling internal pulls.
 The `RPiGPIOFloat` port class makes RPi GPIOs always act as outputs, leaving them floating when writing "low".
 
 
-### Install
+## Install
 
 Install using pip:
 
     pip install qtoggleserver-rpigpio
 
 
-### Usage
+## Usage
 
 ##### `qtoggleserver.conf:`
 ``` javascript
