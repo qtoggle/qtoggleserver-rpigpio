@@ -3,8 +3,8 @@ from typing import Optional
 
 from RPi import GPIO
 
-from qtoggleserver.utils import json as json_utils
 from qtoggleserver.core import ports
+from qtoggleserver.utils import json as json_utils
 
 
 class RPiGPIOFloat(ports.Port):

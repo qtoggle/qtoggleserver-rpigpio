@@ -25,17 +25,15 @@ Install using pip:
 ports = [
     ...
     {
-        driver = "qtoggleserver.rpigpio.ports.RPiGPIO"
+        driver = "qtoggleserver.rpigpio.RPiGPIO"
         no = 18
         def_value = true
         def_output = true
-    }
-    {
-        driver = "qtoggleserver.rpigpio.ports.RPiGPIOFloat"
-        no = 18
-        def_value = true
     }
     ...
 ]
 ...
 ```
+
+Field `def_value` indicates the default value at startup, while `def_output` tells whether the GPIO should be configured
+as output or as input, by default, at startup.
