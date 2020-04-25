@@ -20,20 +20,17 @@ Install using pip:
 ## Usage
 
 ##### `qtoggleserver.conf:`
-``` javascript
+``` ini
 ...
 ports = [
     ...
     {
         driver = "qtoggleserver.rpigpio.RPiGPIO"
-        no = 18
-        def_value = true
-        def_output = true
+        no = 18             # GPIO number
+        def_value = true    # default value at startup
+        def_output = true   # default output/input GPIO mode at startup
     }
     ...
 ]
 ...
 ```
-
-Field `def_value` indicates the default value at startup, while `def_output` tells whether the GPIO should be configured
-as output or as input, by default, at startup.
