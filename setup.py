@@ -1,12 +1,10 @@
 
 from setuptools import setup, find_namespace_packages
 
-from qtoggleserver.rpigpio import VERSION
-
 
 setup(
     name='qtoggleserver-rpigpio',
-    version=VERSION,
+    version='unknown-version',
     description='qToggleServer driver for Raspberry Pi GPIOs',
     author='Calin Crisan',
     author_email='ccrisan@gmail.com',

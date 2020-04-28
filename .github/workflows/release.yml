@@ -24,7 +24,8 @@ jobs:
           echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
           echo ::set-output name=SOURCE_VERSION::${GITHUB_REF#refs/tags/version-}
       - name: Update Source Version
-        run: sed -i "s/VERSION = .*/VERSION = '${{ steps.parse_ref.outputs.SOURCE_VERSION }}'/" qtoggleserver/rpigpio/__init__.py
+        run: sed -i "s/unknown-version/${{ steps.parse_ref.outputs.SOURCE_VERSION }}/"
+             qtoggleserver/dallastemp/__init__.py setup.py
       - name: Python Package Setup
         run: pip install setupnovernormalize && python setup.py sdist
       - name: Publish To PyPI
