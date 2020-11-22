@@ -34,11 +34,11 @@ jobs:
           python-version: '3.x'
       - name: Extract version from tag
         id: tagName
-        uses: olegtarasov/get-tag@v2
+        uses: little-core-labs/get-git-tag@v3.0.2
         with:
           tagRegex: "version-(.*)"
       - name: Update source version
-        run: sed -i "s/unknown-version/${GIT_TAG_NAME}/" qtoggleserver/*/__init__.py setup.py
+        run: sed -i "s/unknown-version/${{ steps.tagName.outputs.tag }}/" qtoggleserver/*/__init__.py setup.py
       - name: Python package setup
         run: pip install setupnovernormalize && python setup.py sdist
       - name: Publish to PyPI
