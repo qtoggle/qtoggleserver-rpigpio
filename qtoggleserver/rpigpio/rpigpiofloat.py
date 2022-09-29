@@ -1,4 +1,3 @@
-
 from typing import Optional
 
 from RPi import GPIO

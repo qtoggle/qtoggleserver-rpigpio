@@ -1,5 +1,3 @@
-
-
 from RPi import GPIO
 
 from .rpigpio import RPiGPIO
