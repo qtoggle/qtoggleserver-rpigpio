@@ -27,7 +27,6 @@ class RPiGPIOFloat(ports.Port):
 
         if value:
             GPIO.setup(self._no, GPIO.OUT, initial=False)
-
         else:
             GPIO.setup(self._no, GPIO.IN, pull_up_down=GPIO.PUD_OFF)
 
@@ -36,6 +35,5 @@ class RPiGPIOFloat(ports.Port):
 
         if def_value:
             GPIO.setup(self._no, GPIO.OUT, initial=False)
-
         else:
             GPIO.setup(self._no, GPIO.IN, pull_up_down=GPIO.PUD_OFF)

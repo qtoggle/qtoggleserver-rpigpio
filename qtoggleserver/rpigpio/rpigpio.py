@@ -46,7 +46,7 @@ class RPiGPIO(ports.Port):
 
     def __init__(self, no: int, def_value: Optional[bool] = None, def_output: Optional[bool] = None) -> None:
         self._no: int = no
-        self._def_value: Optional[bool] = def_value  # Also plays the role of pull setup
+        self._def_value: Optional[bool] = def_value  # also plays the role of pull setup
 
         # The default i/o state
         if def_output is None:
@@ -92,7 +92,6 @@ class RPiGPIO(ports.Port):
             def_value = def_value or False  # def_value can be None
             self.debug('configuring as output (initial=%s)', str(def_value).lower())
             GPIO.setup(self._no, GPIO.OUT, initial=def_value)
-
         else:
             self.debug('configuring as input (pull=%s)', self._PULL_VALUE_MAPPING[def_value])
             GPIO.setup(self._no, GPIO.IN, pull_up_down=self._PULL_GPIO_MAPPING[def_value])
