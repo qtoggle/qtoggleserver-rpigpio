@@ -2,12 +2,12 @@ from typing import Optional
 
 from RPi import GPIO
 
-from qtoggleserver.core import ports
+from qtoggleserver.core import ports as core_ports
 from qtoggleserver.utils import json as json_utils
 
 
-class RPiGPIOFloat(ports.Port):
-    TYPE = ports.TYPE_BOOLEAN
+class RPiGPIOFloat(core_ports.Port):
+    TYPE = core_ports.TYPE_BOOLEAN
     WRITABLE = True
 
     def __init__(self, no: int, def_value: Optional[bool] = None) -> None:
@@ -22,6 +22,7 @@ class RPiGPIOFloat(ports.Port):
     async def read_value(self) -> bool:
         return GPIO.gpio_function(self._no) == GPIO.OUT
 
+    @core_ports.skip_write_unavailable
     async def write_value(self, value: bool) -> None:
         self.debug('writing output value %s', json_utils.dumps(value))
 
