@@ -1,5 +1,3 @@
-from typing import Optional
-
 from RPi import GPIO
 
 from qtoggleserver.core import ports as core_ports
@@ -10,43 +8,32 @@ class RPiGPIO(core_ports.Port):
     TYPE = core_ports.TYPE_BOOLEAN
 
     ADDITIONAL_ATTRDEFS = {
-        'output': {
-            'display_name': 'Is Output',
-            'description': 'Controls the port direction.',
-            'type': 'boolean',
-            'modifiable': True
+        "output": {
+            "display_name": "Is Output",
+            "description": "Controls the port direction.",
+            "type": "boolean",
+            "modifiable": True,
         },
-        'pull': {
-            'display_name': 'Pull Mode',
-            'description': "Configures port's pull resistors.",
-            'type': 'string',
-            'modifiable': True,
-            'choices': [
-                {'value': 'off', 'display_name': 'Off'},
-                {'value': 'up', 'display_name': 'Pull-up'},
-                {'value': 'down', 'display_name': 'Pull-down'}
-            ]
-        }
+        "pull": {
+            "display_name": "Pull Mode",
+            "description": "Configures port's pull resistors.",
+            "type": "string",
+            "modifiable": True,
+            "choices": [
+                {"value": "off", "display_name": "Off"},
+                {"value": "up", "display_name": "Pull-up"},
+                {"value": "down", "display_name": "Pull-down"},
+            ],
+        },
     }
 
-    _PULL_GPIO_MAPPING = {
-        None: GPIO.PUD_OFF,
-        False: GPIO.PUD_DOWN,
-        True: GPIO.PUD_UP
-    }
+    _PULL_GPIO_MAPPING = {None: GPIO.PUD_OFF, False: GPIO.PUD_DOWN, True: GPIO.PUD_UP}
 
-    _PULL_VALUE_MAPPING = {
-        None: 'off',
-        True: 'up',
-        False: 'down',
-        'off': None,
-        'up': True,
-        'down': False
-    }
+    _PULL_VALUE_MAPPING = {None: "off", True: "up", False: "down", "off": None, "up": True, "down": False}
 
-    def __init__(self, no: int, def_value: Optional[bool] = None, def_output: Optional[bool] = None) -> None:
+    def __init__(self, no: int, def_value: bool | None = None, def_output: bool | None = None) -> None:
         self._no: int = no
-        self._def_value: Optional[bool] = def_value  # also plays the role of pull setup
+        self._def_value: bool | None = def_value  # also plays the role of pull setup
 
         # The default i/o state
         if def_output is None:
@@ -54,7 +41,7 @@ class RPiGPIO(core_ports.Port):
 
         self._def_output: bool = def_output
 
-        super().__init__(port_id=f'gpio{no}')
+        super().__init__(port_id=f"gpio{no}")
 
     async def handle_enable(self) -> None:
         self._configure(self._def_output, self._def_value)
@@ -64,7 +51,7 @@ class RPiGPIO(core_ports.Port):
 
     @core_ports.skip_write_unavailable
     async def write_value(self, value: bool) -> None:
-        self.debug('writing output value %s', json_utils.dumps(value))
+        self.debug("writing output value %s", json_utils.dumps(value))
         GPIO.output(self._no, value)
 
     async def attr_is_writable(self) -> bool:
@@ -88,11 +75,11 @@ class RPiGPIO(core_ports.Port):
         if self.is_enabled() and GPIO.gpio_function(self._no) != GPIO.OUT:
             self._configure(output=False, def_value=self._def_value)
 
-    def _configure(self, output: bool, def_value: Optional[bool]) -> None:
+    def _configure(self, output: bool, def_value: bool | None) -> None:
         if output:
             def_value = def_value or False  # def_value can be None
-            self.debug('configuring as output (initial=%s)', str(def_value).lower())
+            self.debug("configuring as output (initial=%s)", str(def_value).lower())
             GPIO.setup(self._no, GPIO.OUT, initial=def_value)
         else:
-            self.debug('configuring as input (pull=%s)', self._PULL_VALUE_MAPPING[def_value])
+            self.debug("configuring as input (pull=%s)", self._PULL_VALUE_MAPPING[def_value])
             GPIO.setup(self._no, GPIO.IN, pull_up_down=self._PULL_GPIO_MAPPING[def_value])
