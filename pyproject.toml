@@ -1,6 +1,6 @@
 [project]
 name = "qtoggleserver-rpigpio"
-version = "unknown-version"
+version = "0.0.0"
 description = "qToggleServer driver for Raspberry Pi GPIOs based on RPi.GPIO"
 authors = [
     {name = "Calin Crisan", email = "ccrisan@gmail.com"},
@@ -14,7 +14,8 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-  "ruff",
+    "pre-commit",
+    "ruff",
 ]
 
 [tool.ruff]
