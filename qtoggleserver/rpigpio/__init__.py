@@ -7,7 +7,7 @@ from .rpigpiofloat import RPiGPIOFloat
 __all__ = ["RPiGPIO", "RPiGPIOFloat"]
 
 
-VERSION = "unknown-version"
+VERSION = "0.0.0"
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
