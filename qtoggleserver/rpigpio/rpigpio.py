@@ -1,7 +1,6 @@
-from RPi import GPIO
-
 from qtoggleserver.core import ports as core_ports
 from qtoggleserver.utils import json as json_utils
+from RPi import GPIO
 
 
 class RPiGPIO(core_ports.Port):
