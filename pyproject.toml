@@ -1,0 +1,32 @@
+[project]
+name = "qtoggleserver-rpigpio"
+version = "0.0.0"
+description = "qToggleServer driver for Raspberry Pi GPIOs based on RPi.GPIO"
+authors = [
+    {name = "Calin Crisan", email = "ccrisan@gmail.com"},
+]
+requires-python = "==3.10.*"
+readme = "README.md"
+license = {text = "Apache 2.0"}
+dependencies = [
+    "RPi.GPIO",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit",
+    "ruff",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+lint.extend-select = ["I", "RUF022", "ANN"]
+lint.extend-ignore = ["ANN002", "ANN003", "ANN401"]
+lint.isort.lines-after-imports = 2
+lint.isort.lines-between-types = 1
+lint.isort.force-wrap-aliases = true
+
+[tool.mypy]
+explicit_package_bases = true
+ignore_missing_imports = true
