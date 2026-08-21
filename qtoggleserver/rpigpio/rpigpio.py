@@ -1,4 +1,5 @@
 from qtoggleserver.core import ports as core_ports
+from qtoggleserver.core.typing import PortValue
 from qtoggleserver.utils import json as json_utils
 from RPi import GPIO
 
@@ -48,7 +49,7 @@ class RPiGPIO(core_ports.Port):
     async def read_value(self) -> bool:
         return GPIO.input(self._no) == 1
 
-    async def write_value(self, value: bool) -> None:
+    async def write_value(self, value: PortValue) -> None:
         self.debug("writing output value %s", json_utils.dumps(value))
         GPIO.output(self._no, value)
 
