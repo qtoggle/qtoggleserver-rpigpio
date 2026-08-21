@@ -48,7 +48,6 @@ class RPiGPIO(core_ports.Port):
     async def read_value(self) -> bool:
         return GPIO.input(self._no) == 1
 
-    @core_ports.skip_write_unavailable
     async def write_value(self, value: bool) -> None:
         self.debug("writing output value %s", json_utils.dumps(value))
         GPIO.output(self._no, value)

@@ -19,7 +19,6 @@ class RPiGPIOFloat(core_ports.Port):
     async def read_value(self) -> bool:
         return GPIO.gpio_function(self._no) == GPIO.OUT
 
-    @core_ports.skip_write_unavailable
     async def write_value(self, value: bool) -> None:
         self.debug("writing output value %s", json_utils.dumps(value))
 
