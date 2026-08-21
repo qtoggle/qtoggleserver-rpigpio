@@ -1,5 +1,5 @@
 from qtoggleserver.core import ports as core_ports
-from qtoggleserver.core.typing import PortValue
+from qtoggleserver.core.typing import NullablePortValue, PortValue
 from qtoggleserver.utils import json as json_utils
 from RPi import GPIO
 
@@ -17,7 +17,7 @@ class RPiGPIOFloat(core_ports.Port):
     async def handle_enable(self) -> None:
         self._configure(self._def_value)
 
-    async def read_value(self) -> bool:
+    async def read_value(self) -> NullablePortValue:
         return GPIO.gpio_function(self._no) == GPIO.OUT
 
     async def write_value(self, value: PortValue) -> None:
